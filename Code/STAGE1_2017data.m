@@ -1,6 +1,6 @@
 %% Jericho Lawson
 %% Summer 2019, 2021
-%% Extracting AFib Data
+%% Extracting AFib Data from 2017 Dataset
 
 % Using the mcode from the training2017 folder of the training2017.zip 
 % file, the code extracts annotations from the 2017 PhysioNet/CinC 
