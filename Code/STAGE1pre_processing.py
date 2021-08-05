@@ -53,5 +53,6 @@ for subject in FILES:
     data = np.vstack((rr_int, starts, ends, afib)).T
     data = pd.DataFrame(data)
     data.columns = ['RRLength', 'Start', 'End', 'State']
-    data.to_csv(SOURCE_TO + subject + ".csv")
-
+    data.to_csv(SOURCE_TO + subject + ".csv", index = False)
+    
+###############################################################################

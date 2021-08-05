@@ -8,11 +8,12 @@
 % the subjects.
 
 % Directory where all files are located
-SOURCE_FROM = "/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibrillation/Testing/training2017";
+SOURCE_FROM = "/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibrillation/Testing/training2017/";
 addpath(SOURCE_FROM); 
 
 % Directory where new .csv files will be located
-SOURCE_TO = "/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibrillation/Summer 2021 Testing/Data/2017/pre/";
+SOURCE_TO = "/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibrillation/Summer 2021 Testing/Data/2017/";
+SOURCE_DATA = strcat(SOURCE_TO, 'pre/');
 
 % Lists subjects from the 2017 PhysioNet Challenge.
 fid = fopen(['RECORDS'], 'r');
@@ -23,6 +24,9 @@ RECORDS = RECLIST{1};
 % Used to get updated list of subjects.
 new_records = "";
 count = 0;
+
+% Used to gather states of each subject.
+ref = readtable(strcat(SOURCE_FROM, 'REFERENCE.csv'), 'ReadVariableNames', false);
 
 % Collects info regarding the R-R peak times and lengths; places info into
 % new files.
@@ -42,15 +46,15 @@ for i = 1:length(RECORDS)
     
     % Creates array with starting times, ending times, and RR intervals to
     % place in .csv file.
-    mat = [(0:length(RR) - 1).' RR starts.' ends.'];
-    header = {'Index', 'RRLength', 'Start', 'End'};
+    mat = [RR starts.' ends.' repelem(string(ref{i, 2}), length(RR)).'];
+    header = {'RRLength', 'Start', 'End', 'State'};
     if ~isempty(mat)
         mat2 = cell2table(num2cell(mat), 'VariableNames', header);
-        writetable(mat2, strcat(SOURCE_TO, fname, '.csv'));
+        writetable(mat2, strcat(SOURCE_DATA, fname, '.csv'));
         count = count + 1;
         new_records(count) = string(RECORDS{i});
     end
 end
 
 % Writes new record reference.
-writematrix(new_records.', strcat(SOURCE_TO, 'new_reference.csv'));
+writematrix(new_records.', strcat(SOURCE_TO, 'ref_2017.csv'));
