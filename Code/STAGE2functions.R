@@ -5,65 +5,23 @@
 # Functions that allow the STAGE2features.R code to process the data, 
 # create 30 second segments, and add features to the segments.
 
-#### Functions ####
+#### Helper Functions ##########################################################
 
-## Utility Functions ##
-
-# Function to determine if value is between two points.
-between = function(val, lims){
-  return(ifelse(val >= lims[1] & val <= lims[2], T, F))
-}
-
-# Function to process each raw atrial fibrillation file for every subject.
-file_process = function(number, version){
-  if (version == "M"){
-    number = paste("0", number, sep = "")
-    read.csv(paste("Data/MIT-BIH/pre/", number, ".csv", sep = ""), header = T)
+# Function to add and subtract value by certain difference.
+# I: x (value to add and subtract from), diff (difference)
+# O: NULL (if length of x is not 2) or x +/- diff
+plusminus = function(x, diff){
+  if (length(x) != 2){
+    NULL
   } else {
-    read.csv(paste("Data/2017/pre/", number,  ".csv", sep = ""), header = T)
+    c(x[1] - diff, x[2] + diff)
   }
 }
 
-
-omitter = function(data){
-  return(na.omit(data))
-}
-
-# Identifies each type that is found in the sample.
-type_adder = function(type, counter){
-  ind = ifelse(type == "AFIB", 1, ifelse(type == "N", 2, ifelse(type == "AFL", 3, 4)))
-  counter[ind] = counter[ind] + 1
-  return(counter)
-}
-
-state_to_ind = function(type){
-  return(ifelse(type == "S", 1, ifelse(type == "Reg", 2, 3)))
-}
-
-transition_determiner = function(prev, curr, counter){
-  prev_ind = state_to_ind(prev)
-  curr_ind = state_to_ind(curr)
-  ind = 3 * (prev_ind - 1) + curr_ind
-  counter[ind] = counter[ind] + 1
-  return(counter)
-}
-
-
-## SAMPLE ENTROPY ##
-
-# finds standardized SampEnt for segment of RR intervals
-sampEntStand = function(x, m = 2, r = 0.1 * sdrr, n = length(x)){
-  # solve for A and B
-  A = sampEntCheck(x, m + 1, r, n)
-  B = sampEntCheck(x, m, r, n)
-  
-  #return(c(A, B)) # debugging purposes
-  
-  # return standardized sample entropy
-  return(-log(A[3] / B[3]))
-}
-
-# finds the number of pairs that are lower than threshold for SampEnt
+# Finds the number of pairs that are lower than threshold for sample entropy.
+# I: x (RR length data for t-second segment), m (size of group),
+#    r (threshold for acceptance), n (size of data)
+# O: rate (count / max, proportion of successful groups)
 sampEntCheck = function(x, m, r, n){
   # tracks successful differences
   count = 0
@@ -79,74 +37,151 @@ sampEntCheck = function(x, m, r, n){
       count = count + sum(max(abs(i_pair - j_pair)) <= r)
     }
   }
+  # returns proportion of succesful pairs
+  return(count / max)
+}
+
+# Converts length type to an index.
+# I: length type (length type of observation)
+# O: 1, 2, 3 (for "S", "Reg", and "L" respectively)
+state_to_ind = function(type){
+  return(ifelse(type == "S", 1, ifelse(type == "Reg", 2, 3)))
+}
+
+# Determines the index of the transition for the tally of transitions.
+# I: prev (length state of previous RR length), 
+#    next (length state of current RR length), 
+#    counter (tally of transition states)
+# O: counter (tally of transition states)
+transition_determiner = function(prev, curr, counter){
+  prev_ind = state_to_ind(prev)
+  curr_ind = state_to_ind(curr)
+  ind = 3 * (prev_ind - 1) + curr_ind
+  counter[ind] = counter[ind] + 1
+  return(counter)
+}
+
+# Identifies each observations as AFib, Normal, AFL, or other. Updates 
+# tallies.
+# I: type (type of observation), counter (tally of types)
+# O: counter (tally of types)
+type_adder = function(type, counter){
+  ind = ifelse(type == "AFIB", 1, ifelse(type == "N", 2, 
+                                         ifelse(type == "AFL", 3, 4)))
+  counter[ind] = counter[ind] + 1
+  return(counter)
+}
+
+#### Feature Functions #########################################################
+
+# Finds standardized sample entropy for segment of RR intervals.
+# I: x (RR length data for t-second segment), m (size of group),
+#    r (threshold for acceptance), n (size of data)
+# O: sample entropy (-ln(A / B))
+sampEnt = function(x, m = 2, r, n = length(x)){
+  # solve for A and B
+  A = sampEntCheck(x, m + 1, r, n)
+  B = sampEntCheck(x, m, r, n)
   
-  # returns count, maximum, and rate
-  return(c(count, max, count / max))
+  # return standardized sample entropy
+  return(-log(A / B))
 }
 
-## NEC RATE ##
-
-# function to do plus/minus operation
-plusminus = function(x, diff){
-  if (length(x) != 2){
-    NULL
-  } else {
-    c(x[1] - diff, x[2] + diff)
-  }
-}
-
-gridplace = function(x, y, int = 0.025){
+# Gets the NEC rate of a segment of intervals.
+# I: x (RR lengths), y (RR length differences), int (size of cell),
+#    size (number of intervals in segment)
+# O: NEC rate (proportion of non-empty cells in segment)
+NECRate = function(x, y, int = 0.025, size = length(x)){
+  # limits of NEC grid, such that the grid can fit a whole number 
+  # of cells of length int
   xl = plusminus(range(x), (int - (diff(range(x)) %% int)) / 2)
   yl = plusminus(range(y), (int - (diff(range(y)) %% int)) / 2)
   
-  # grid lines
+  # grid lines, each separated by int
   xcuts = seq(xl[1], xl[2], by = int); ycuts = seq(yl[1], yl[2], by = int)
   
-  # cell counts
+  # tally of cell counts
   grid = matrix(0, length(ycuts) - 1, length(xcuts) - 1)
   
-  # tally up counts of each cell
+  # goes through each grouped pair of x and y and 
+  # tallies up number of pairs in each cell
   for (p in 1:length(x)){
+    # max added in case point is lower bound for x or upper bound for y
+    # min added in case point is upper bound for x or lower bound for y
     coords = c(min(max(1, ceiling((x[p] - xl[1]) / int)), dim(grid)[2]), 
                min(max(1, ceiling((yl[2] - y[p]) / int)), dim(grid)[1]))
-    # max added in case point is lower bound for x or upper bound for y
-
+    
+    # update tallies
     grid[coords[2], coords[1]] = grid[coords[2], coords[1]] + 1
   }
-  return(sum(grid != 0))
+  
+  # return proportion of non empty cells divided by size (number of intervals)
+  return(sum(grid != 0) / size)
 }
 
+#### MAIN FUNCTIONS ############################################################
 
+# Function to process each raw atrial fibrillation file of 
+# RR intervals for every subject.
+# I: number (subject name), 
+#    version ("M" for MIT-BIH data, "C" for 2017/CinC data)
+# O: Dataset from given file
+file_process = function(number, version){
+  if (version == "M"){
+    number = paste("0", number, sep = "")
+    read.csv(paste("Data/MIT-BIH/pre/", number, ".csv", sep = ""), header = T)
+  } else {
+    read.csv(paste("Data/2017/pre/", number,  ".csv", sep = ""), header = T)
+  }
+}
 
-# Creates several new variables and write data regarding the transition matrix of the AFIB data.
-
-segment_creator = function(subject, list_data, source, chop_left = 0, chop_right = 0, version, int, int_min){
+# Converts RR intervals into segments, forming new features along the way.
+# I: subject (subject name to gather data for),
+#    list_data (all RR interval data)
+#    source (file path for writing .csv files),
+#    chop_left (removes first k indices from whole subject),
+#    chop_right (removes last k indices from whole subject),
+#    version ("M" or "C"), int (length of segment in seconds),
+#    int_min (minimum amount of intervals in segment)
+# O: seg_info/NA (segment information for subject)
+segment_creator = function(subject, list_data, source, chop_left = 0, 
+                           chop_right = 0, version, int, int_min){
+  # Gathers data for specific subject
   data = list_data[[subject]]
-  # features: transition counter, lengths, differences
-  class_count = rep(0, 9)
   
+  # AFib/N states to be collected throughout process; added to data frame later
+  states = c()
+  
+  # starting and ending indices for subject under review
   ind_start = 2 + chop_left
   ind_end = dim(data)[1] - chop_right
+  
+  # tallies up types of transitions (e.g. Reg to Long)
+  class_count = rep(0, 9)
+  
+  # starting index of future segment of t seconds
   seg_start = ind_start - 1
   
-  lengths = c(data$RRLength[seg_start])
-  differences = c(data$RRDiff[seg_start])
-  
+  # current starting and ending times for future segment
   start = data$Start[seg_start]
   end = data$End[seg_start]
   
-  states = c()
+  # gathers lengths and differences
+  lengths = c(data$RRLength[seg_start])
+  differences = c(data$RRDiff[seg_start])
   
-  if (ind_end - ind_start < 3){ # to run sample entropy properly for 2017 data (n = 5)
+  # used to run sample entropy properly for 2017 data (n >= 5 (int_min))
+  if (ind_end - ind_start + 2 < int_min){
     return(NA)
   }
   
   # determines if new data frame is needed
   begin = T
   
+  # Goes through each RR interval to create features and segments
   for (i in ind_start:ind_end){
     
-    # Adds onto certain parameters and variables.
+    # Creates new end of future segment.
     end = data$End[i]
     
     # Tracks the amount of each type there is in the sample.
@@ -157,41 +192,53 @@ segment_creator = function(subject, list_data, source, chop_left = 0, chop_right
     differences = c(differences, data$RRDiff[i])
     
     # Determines which transition occurs based off the RRclass data.
-    class_count = transition_determiner(data$RRClass[i - 1], data$RRClass[i], class_count)
+    class_count = transition_determiner(data$RRClass[i - 1], 
+                                        data$RRClass[i], class_count)
     
+    # For MIT/BIH data: makes new segment when end - start > int
+    # For 2017 data: makes new segment when end of truncated interval is reached
     if ((end - start > int & version == "M") | (i == ind_end & version == "C")){
-      intervals = i - seg_start + 1
       
-      if ((i - seg_start + 1) > int_min) {
-        state = ifelse(types_count[1] >= sum(types_count[2:4]), "AFIB", "N") # determines if segment is AFIB or not
+      # number of RR intervals inside segment (1 feature)
+      intervals = length(lengths)
+      
+      # Used for MIT-BIH dataset when there is a low number of valid intervals; 
+      if (intervals > int_min) {
+
+        # determines if segment is AFIB or not
+        state = ifelse(types_count[1] >= sum(types_count[2:4]), "AFIB", "N") 
         states = c(states, state)
         
-        
+        # heart rate (1 feature)
         heart_rate = intervals * 60 / (end - start);
+        
+        # transition proportions (9 features)
         props = round(class_count / (sum(class_count)), digits = 8)
+        
+        # RR length variance, RR length difference variance, 
+        # RR length difference mean (3 features)
         rr_length_var = var(lengths)
         rr_diff_var = var(differences)
         rr_diff_mean = mean(differences)
         
-        samp_ent = sampEntStand(x = lengths, m = 2, r = 0.1 * sqrt(rr_length_var))
-        necRate = gridplace(x = lengths, y = differences) / intervals
+        # sample entropy and NEC rate (2 features)
+        samp_ent = sampEnt(x = lengths, m = 2, r = 0.1 * sqrt(rr_length_var))
+        necRate = NECRate(x = lengths, y = differences)
         
-        row = c(start, end, (end - start), intervals, heart_rate, 
-                props, rr_length_var, rr_diff_var, rr_diff_mean, samp_ent, necRate)
+        # row of information for segment
+        row = c(start, end, (end - start), intervals, heart_rate, props, 
+                rr_length_var, rr_diff_var, rr_diff_mean, samp_ent, necRate)
         
+        # creates new data frame of segment information or adds to data frame
         if (begin == T){
-          
-          rel_freq_info = as.data.frame(rbind("1" = row))
-          
+          seg_info = as.data.frame(rbind("1" = row))
           begin = F
         } else {
-    
-          rel_freq_info = rbind(rel_freq_info, row)
-          
+          seg_info = rbind(seg_info, row)
         }
       } 
-      
-      
+      # Resets starting segment time, starting index, types tallies,
+      # transition tallies, lengths, and differences for next segment.
       start = data$End[i]
       seg_start = i + 1
       types_count = c(0, 0, 0, 0)
@@ -199,36 +246,41 @@ segment_creator = function(subject, list_data, source, chop_left = 0, chop_right
       lengths = c()
       differences = c()
     }
-    
-    
-    
   }
-  # Writes .csv file with info for particular sample.
-  if (begin != T & version == "M"){
-    rel_freq_info = cbind(states, rel_freq_info)
+  ## DATA WRITING: writes segment info for each subject (MIT-BIH only) and
+  ##               returns segment info
+  if (begin != T){
+    # column names for data frame; binds states information to data frame
     class_names = c("State", "Start", "End", "Time", "Intervals", "HeartRate", 
                     "S-S", "S-Reg", "S-L", "Reg-S", "Reg-Reg", "Reg-L", "L-S", 
-                    "L-Reg", "L-L", "RRVar", "dRRVar", "dRRMean", "SampEnt", "NECRate")
-    colnames(rel_freq_info) = class_names
+                    "L-Reg", "L-L", "RRVar", "dRRVar", "dRRMean", "SampEnt", 
+                    "NECRate")
+    seg_info = cbind(states, seg_info)
+    colnames(seg_info) = class_names
     
-    write.csv(rel_freq_info, paste(source, "seg/", subject, ".csv", sep = ""), row.names = FALSE)
-    return(rel_freq_info)
-  } else if (begin != T & version == "C") {
-    rel_freq_info = cbind(states, rel_freq_info)
-    class_names = c("State", "Start", "End", "Time", "Intervals", "HeartRate", 
-                    "S-S", "S-Reg", "S-L", "Reg-S", "Reg-Reg", "Reg-L", "L-S", 
-                    "L-Reg", "L-L", "RRVar", "dRRVar", "dRRMean", "SampEnt", "NECRate")
-    colnames(rel_freq_info) = class_names
-    return(rel_freq_info)
+    # Writes .csv file with information for particular subject
+    if (version == "M"){
+      write.csv(seg_info, paste(source, "seg/", subject, ".csv", sep = ""), 
+                row.names = FALSE)
+    }
+    
+    # Returns segment information
+    return(seg_info)
   } else {
     return(NA)
   }
-  
-  
 }
 
+# Combines all subjects' segment information; writes all information to 
+# one file. 
+# I: list (list of all segment info), source (file path), 
+#    version ("M" or "C"), subjects (vector of subjects)
+# O: None
 combine_to_csv = function(list, source, version, subjects){
+  # Used for file naimg purposes.
   vers = ifelse(version == "M", "MIT-BIH", "2017")
+  
+  # Creates new data frame and adds segment info to data frame.
   for (i in 1:length(list)){
     if (length(dim(data2[[i]])) != 0){
       Subject = rep(subjects[i], dim(list[[i]])[1])
@@ -240,89 +292,11 @@ combine_to_csv = function(list, source, version, subjects){
       }
     }
   }
-  write.csv(to_return, paste(source, "seg/all_seg_data_", vers, ".csv", sep = ""), row.names = FALSE)
+  
+  # Writes .csv information.
+  write.csv(to_return, 
+            paste(source, "seg/all_seg_data_", vers, ".csv", sep = ""), 
+            row.names = FALSE)
 }
 
-# Creates several new variables and write data regarding the transition matrix of the AFIB data.
-rel_freq_2 = function(num, VERSION){
-  # Initializes certain parameters and variables.
-  class_count = rep(0, 9); i = 2; start = data[[num]]$Start[1]; end = data[[num]]$End[1]; secs = end - start; intervals = 0
-  begin = T
-  class_names = c("Start", "End", "Time", "State", "Intervals", "Est. Heart Rate", "S-S", "S-Reg", "S-L", "Reg-S", "Reg-Reg", "Reg-L", "L-S",  
-                  "L-Reg", "L-L", "Subject", "R-R Length Variance", "R-R Difference Variance", "R-R Mean Difference")
-  
-  lengths = c(data[[num]]$RRLength[1]); differences = c(data[[num]]$RRDiff[1])
-  
-  # Collects dRR interval information.
-  drr_all = list()
-  
-  # Cycles through each heartbeat.
-  if (dim(data[[num]])[1] > 1){
-    for (i in 2:dim(data[[num]])[1]){
-      # Adds onto certain parameters and variables.
-      end = data[[num]]$End[i]; secs = secs + data[[num]]$RRLength[i]; intervals = intervals + 1
-      
-      # Tracks the lengths and differences of the RR intervals.
-      lengths = c(lengths, data[[num]]$RRLength[i]); differences = c(differences, data[[num]]$RRDiff[i])
-      
-      # Determines which transition occurs based off the RRclass data.
-      if (data[[num]]$RRClass[i - 1] == "S"){
-        if (data[[num]]$RRClass[i] == "S"){
-          class_count[1] = class_count[1] + 1
-        }else if (data[[num]]$RRClass[i] == "Reg"){
-          class_count[2] = class_count[2] + 1
-        }else{
-          class_count[3] = class_count[3] + 1
-        }
-      }else if (data[[num]]$RRClass[i - 1] == "Reg"){
-        if (data[[num]]$RRClass[i] == "S"){
-          class_count[4] = class_count[4] + 1
-        }else if (data[[num]]$RRClass[i] == "Reg"){
-          class_count[5] = class_count[5] + 1
-        }else{
-          class_count[6] = class_count[6] + 1
-        }
-      }else{
-        if (data[[num]]$RRClass[i] == "S"){
-          class_count[7] = class_count[7] + 1
-        }else if (data[[num]]$RRClass[i] == "Reg"){
-          class_count[8] = class_count[8] + 1
-        }else{
-          class_count[9] = class_count[9] + 1
-        }
-      }
-      begin = F
-    }
-    # Make changes below if necessary. (1st for binary, 2nd for multiple classes)
-    if (VERSION == "single_2017"){
-      rel_freq_info = rbind(c(start, end, secs, ifelse(data[[num]]$State[1] == "(N", "N", "AFIB"), intervals, intervals * 60 / secs,
-                              round(class_count / (sum(class_count)), digits = 8), paste(subjects[num]), 
-                              var(lengths), var(differences), mean(differences)))
-      drr_all[[num]] = differences
-    }else{
-      rel_freq_info = rbind(c(start, end, secs, ifelse(data[[num]]$State[1] == "(N", "N", 
-                                                     ifelse(data[[num]]$State[1] == "(A", "AFIB",
-                                                            ifelse(data[[num]]$State[1] == "(O", "O", "~"))), 
-                              intervals, intervals * 60 / secs, round(class_count / (sum(class_count)), digits = 8), paste(subjects[num]), 
-                              var(lengths), var(differences), mean(differences)))
-      drr_all[[num]] = differences
-    }
-  }
-  # Writes .csv file with info for particular sample.
-  if (begin == F){
-    colnames(rel_freq_info) = class_names
-    return(list(rel_freq_info, drr_all))
-  }else{
-    return(1)
-  }
-}
-
-# Gives proportion of sample that is AFIB and non-AFIB.
-prop_funct = function(num){
-  vect = c(subjects[num], sum(ifelse(data[[num]]$State == "(AFIB", "AFIB", "N") == "AFIB") / length(data[[num]]$State), 
-           sum(ifelse(data[[num]]$State == "(AFIB", "AFIB", "N") != "AFIB") / length(data[[num]]$State), length(data[[num]]$State), 
-           summary(data[[num]]$RRLength))
-  return(vect)
-}
-
-###################################################################################################
+################################################################################
