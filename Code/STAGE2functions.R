@@ -143,9 +143,10 @@ file_process = function(number, version){
 #    chop_right (removes last k indices from whole subject),
 #    version ("M" or "C"), int (length of segment in seconds),
 #    int_min (minimum amount of intervals in segment)
+#    r_thresh (multiplier of SD of lengths for sample entropy)
 # O: seg_info/NA (segment information for subject)
 segment_creator = function(subject, list_data, source, chop_left = 0, 
-                           chop_right = 0, version, int, int_min){
+                           chop_right = 0, version, int, int_min, r_thresh){
   # Gathers data for specific subject
   data = list_data[[subject]]
   
@@ -222,7 +223,7 @@ segment_creator = function(subject, list_data, source, chop_left = 0,
         rr_diff_mean = mean(differences)
         
         # sample entropy and NEC rate (2 features)
-        samp_ent = sampEnt(x = lengths, m = 2, r = 0.1 * sqrt(rr_length_var))
+        samp_ent = sampEnt(x = lengths, m = 2, r = r_thresh * sqrt(rr_length_var))
         necRate = NECRate(x = lengths, y = differences)
         
         # row of information for segment

@@ -9,6 +9,7 @@
 
 INTERVAL = 30 # length of segments in seconds
 VERSION = "M" # M for MIT-BIH, C for 2017 CinC dataset
+COEF_SE = 0.1 # multiplied by standard deviation for sample entropy
 # directory with RR data files
 DIR = "C:/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibrillation/Summer 2021 Testing/" 
 
@@ -40,7 +41,7 @@ names(data) = subjects
 # combines all data together to make one .csv file
 data2 = lapply(subjects, segment_creator, list_data = data, 
                source = paste(DIR, subpath, sep = ""), 
-               version = VERSION, int = INTERVAL, int_min = 5)
+               version = VERSION, int = INTERVAL, int_min = 5, r_thresh = COEF_SE)
 combine_to_csv(data2, source = paste(DIR, subpath, sep = ""), 
                version = VERSION, subjects = subjects)
 
