@@ -1,7 +1,7 @@
-## Jericho Lawson
+## Jericho Lawson and Georgia Smith
 ## Summer 2019, 2021
 ## Adapted from Drew Johnston
-## Pre-Processing Program for MIT-BIH Atrial Fibrillation Project
+## Pre-Processing Program for MIT-BIH Atrial Fibrillation Project (MIT-BIH)
 
 # Using the wfdb package, the code extracts annotations from the MIT-BIH
 # Atrial Fibrillation Database (all 23 subjects) and generates basic
@@ -11,6 +11,7 @@
 #       for each of the subjects.
 
 #### LIBRARIES ####
+
 import os, wfdb, numpy as np, pandas as pd
 from wfdb import processing
 from bisect import bisect_left
@@ -20,7 +21,6 @@ from STAGE1_MITBIH_functions import outlier_f, run_mean_f, rr_diff_f, rr_class_f
 
 WEIGHTS = [0.75, 0.25]
 RUN_THRESH = [0.85, 1.15]
-INTERVAL = 30
 TYPE_THRESH = "n" # "n" for normal threshold, "q" for quantile threshold
 OUT_THRESH = [0.3, 1.5]
 
@@ -74,7 +74,7 @@ for subject in FILES:
                         length = rr_int[obs], length_data = rr_int)
     
         # Adds three variables to each observation if it is not an outlier.
-        # Skips if it is an outlier.
+        # Skips process if it is an outlier.
         if res:
             rr_mean[obs] = run_mean_f(obs, diffs, WEIGHTS, rr_int[obs], 
                                       rr_mean[obs - diffs - 1])

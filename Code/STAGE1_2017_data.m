@@ -1,6 +1,6 @@
-%% Jericho Lawson
+%% Jericho Lawson and Georgia Smith
 %% Summer 2019, 2021
-%% Extracting AFib Data from 2017 Dataset
+%% Pre-Processing Program for MIT-BIH Atrial Fibrillation Project (2017 CinC)
 
 % Using the mcode from the training2017 folder of the training2017.zip 
 % file, the code extracts annotations from the 2017 PhysioNet/CinC 
@@ -15,7 +15,6 @@
 
 WEIGHTS = [0.75, 0.25];
 RUN_THRESH = [0.85, 1.15];
-INTERVAL = 30;
 TYPE_THRESH = "n"; % "n" for normal threshold, "q" for quantile threshold
 OUT_THRESH = [0.3, 1.5];
 
@@ -26,6 +25,8 @@ addpath(SOURCE_FROM);
 % Directory where new .csv files will be located
 SOURCE_TO = "/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibrillation/Summer 2021 Testing/Data/2017/";
 SOURCE_DATA = strcat(SOURCE_TO, 'pre/');
+
+%%%% CODE %%%%
 
 % File of functions as object.
 functs = STAGE1_2017_functions;
