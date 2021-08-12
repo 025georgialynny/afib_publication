@@ -65,9 +65,14 @@ transition_determiner = function(prev, curr, counter){
 # tallies.
 # I: type (type of observation), counter (tally of types)
 # O: counter (tally of types)
-type_adder = function(type, counter){
-  ind = ifelse(type == "AFIB", 1, ifelse(type == "N", 2, 
-                                         ifelse(type == "AFL", 3, 4)))
+type_adder = function(type, counter, vers){
+  if (vers == "M"){
+    ind = ifelse(type == "AFIB", 1, ifelse(type == "N", 2, 
+                                           ifelse(type == "AFL", 3, 4)))
+  } else {
+    ind = ifelse(type == "A", 1, ifelse(type == "N", 2, 
+                                           ifelse(type == "O", 3, 4)))
+  }
   counter[ind] = counter[ind] + 1
   return(counter)
 }
@@ -186,7 +191,7 @@ segment_creator = function(subject, list_data, source, chop_left = 0,
     end = data$End[i]
     
     # Tracks the amount of each type there is in the sample.
-    types_count = type_adder(data$State[i], c(0, 0, 0, 0))
+    types_count = type_adder(data$State[i], c(0, 0, 0, 0), version)
     
     # Tracks the lengths and differences of the RR intervals.
     lengths = c(lengths, data$RRLength[i])
@@ -203,7 +208,7 @@ segment_creator = function(subject, list_data, source, chop_left = 0,
       # number of RR intervals inside segment (1 feature)
       intervals = length(lengths)
       
-      # Used for MIT-BIH dataset when there is a low number of valid intervals; 
+      # Not used for MIT-BIH dataset when there is a low number of valid intervals; 
       if (intervals > int_min) {
 
         # determines if segment is AFIB or not
