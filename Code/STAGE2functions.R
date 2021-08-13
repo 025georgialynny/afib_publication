@@ -21,12 +21,12 @@ plusminus = function(x, diff){
 # Finds the number of pairs that are lower than threshold for sample entropy.
 # I: x (RR length data for t-second segment), m (size of group),
 #    r (threshold for acceptance), n (size of data)
-# O: rate (count / max, proportion of successful groups)
+# O: count (number of successful groups)
 sampEntCheck = function(x, m, r, n){
   # tracks successful differences
   count = 0
   
-  # finds max possible differences
+  # finds max possible differences (for debugging)
   max = choose(n - m + 1, 2)
   
   # pairs each possible m-pack to another m-pack
@@ -37,8 +37,8 @@ sampEntCheck = function(x, m, r, n){
       count = count + sum(max(abs(i_pair - j_pair)) <= r)
     }
   }
-  # returns proportion of succesful pairs
-  return(count / max)
+  # returns number of succesful pairs
+  return(count)
 }
 
 # Converts length type to an index.
