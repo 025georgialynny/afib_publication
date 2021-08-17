@@ -1,0 +1,220 @@
+Loaded gbm 2.1.8
+Loading required package: R6
+
+Attaching package: ‘lightgbm’
+
+The following objects are masked from ‘package:xgboost’:
+
+    getinfo, setinfo, slice
+
+randomForest 4.6-14
+Type rfNews() to see new features/changes/bug fixes.
+$LOG
+NULL
+
+$LDA
+[1] "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$QDA
+[1] "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$GBM
+[1] "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$XGB
+ [1] "xgboost"   "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$LGB
+ [1] "lightgbm"  "R6"        "xgboost"   "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$SVM
+ [1] "e1071"     "lightgbm"  "R6"        "xgboost"   "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$RFO
+ [1] "randomForest" "e1071"        "lightgbm"     "R6"           "xgboost"      "gbm"          "MASS"         "stats"        "graphics"     "utils"        "datasets"     "grDevices"    "methods"      "base"        
+
+There were 23 warnings (use warnings() to see them)
+$LOG
+$LOG$confusion
+      
+           N  AFIB
+  N    15549   707
+  AFIB  1236  9611
+
+$LOG$sensitivity
+[1] 0.8860514
+
+$LOG$specificity
+[1] 0.9565084
+
+$LOG$f1
+[1] 0.9081975
+
+$LOG$accuracy
+[1] 0.9283105
+
+$LOG$time
+[1] 4.303511
+
+
+$LDA
+$LDA$confusion
+      
+           N  AFIB
+  N    15693   563
+  AFIB  1478  9369
+
+$LDA$sensitivity
+[1] 0.8637411
+
+$LDA$specificity
+[1] 0.9653666
+
+$LDA$f1
+[1] 0.9017758
+
+$LDA$accuracy
+[1] 0.9246947
+
+$LDA$time
+[1] 1.827826
+
+
+$QDA
+$QDA$confusion
+      
+           N  AFIB
+  N    14323  1933
+  AFIB   859  9988
+
+$QDA$sensitivity
+[1] 0.9208076
+
+$QDA$specificity
+[1] 0.8810901
+
+$QDA$f1
+[1] 0.8773717
+
+$QDA$accuracy
+[1] 0.8969856
+
+$QDA$time
+[1] 1.27689
+
+
+$GBM
+$GBM$confusion
+      
+           N  AFIB
+  N    15379   877
+  AFIB   943  9904
+
+$GBM$sensitivity
+[1] 0.9130635
+
+$GBM$specificity
+[1] 0.9460507
+
+$GBM$f1
+[1] 0.9158498
+
+$GBM$accuracy
+[1] 0.9328488
+
+$GBM$time
+[1] 1834.468
+
+
+$XGB
+$XGB$confusion
+      
+           N  AFIB
+  N    15197  1059
+  AFIB   816 10031
+
+$XGB$sensitivity
+[1] 0.9247718
+
+$XGB$specificity
+[1] 0.9348548
+
+$XGB$f1
+[1] 0.914528
+
+$XGB$accuracy
+[1] 0.9308195
+
+$XGB$time
+[1] 2859.576
+
+
+$LGB
+$LGB$confusion
+      
+           N  AFIB
+  N    15318   938
+  AFIB   965  9882
+
+$LGB$sensitivity
+[1] 0.9110353
+
+$LGB$specificity
+[1] 0.9422982
+
+$LGB$f1
+[1] 0.9121706
+
+$LGB$accuracy
+[1] 0.9297864
+
+$LGB$time
+[1] 298.5428
+
+
+$SVM
+$SVM$confusion
+      
+           N  AFIB
+  N    15422   834
+  AFIB  1071  9776
+
+$SVM$sensitivity
+[1] 0.901263
+
+$SVM$specificity
+[1] 0.9486959
+
+$SVM$f1
+[1] 0.9112178
+
+$SVM$accuracy
+[1] 0.9297126
+
+$SVM$time
+[1] 242.6032
+
+
+$RFO
+$RFO$confusion
+      
+           N  AFIB
+  N    15317   939
+  AFIB   943  9904
+
+$RFO$sensitivity
+[1] 0.9130635
+
+$RFO$specificity
+[1] 0.9422367
+
+$RFO$f1
+[1] 0.9132319
+
+$RFO$accuracy
+[1] 0.9305612
+
+$RFO$time
+[1] 301.2333
+
+
