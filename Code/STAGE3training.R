@@ -21,8 +21,8 @@ DIR = "C:/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibril
 # SVM = support-vector machine
 # RFO = random forest
 # vector of codes below (for TESTS)
-TESTS = c("LOG", "LDA", "QDA", "GBM", "XGB", "LGB", "SVM", "RFO")
-#TESTS = c("SVM")
+#TESTS = c("LOG", "LDA", "QDA", "GBM", "XGB", "LGB", "SVM", "RFO")
+TESTS = c("SVM")
 
 # Indices of covariates to use in model
 # (Intervals, HeartRate, S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, 
