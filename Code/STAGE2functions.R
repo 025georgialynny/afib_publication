@@ -317,9 +317,16 @@ combine_to_csv = function(list, source, version, subjects, type){
   }
   
   # Writes .csv information.
-  write.csv(to_return, 
+  if (version == "M"){
+    write.csv(to_return, 
             paste(source, "seg/all_seg_data_", vers, "_", type, ".csv", sep = ""), 
             row.names = FALSE)
+  } else {
+    write.csv(to_return, 
+              paste(source, "seg/all_seg_data_", vers, ".csv", sep = ""), 
+              row.names = FALSE)
+  }
+  
 }
 
 ################################################################################

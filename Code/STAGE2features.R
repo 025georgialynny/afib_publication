@@ -7,8 +7,8 @@
 
 #### SPECIFICATIONS ####################################################################################################
 
-INTERVAL = 20 # length of segments in seconds
-VERSION = "M" # M for MIT-BIH, C for 2017 CinC dataset
+INTERVAL = 30 # length of segments in seconds (MIT-BIH data only)
+VERSION = "C" # M for MIT-BIH, C for 2017 CinC dataset
 COEF_SE = 2 # multiplied by standard deviation for sample entropy
 WRITE_SEP = F # writes individual and combined .csv files if true; writes combined file otherwise
 # directory with RR data files
