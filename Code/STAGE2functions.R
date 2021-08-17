@@ -92,6 +92,14 @@ sampEnt = function(x, m = 2, r, n = length(x)){
   return(-log(A / B))
 }
 
+# Finds coefficient of sample entropy (Kennedy, 2016).
+# I: sen (sample entropy value), r (value of r for calculating sample entropy),
+#    avg (mean of RR lengths)
+# O: coefficient of sample entropy
+CoSEn = function(sen, r, avg){
+  return(sen + log(2 * r) - log(avg))
+}
+
 # Gets the NEC rate of a segment of intervals.
 # I: x (RR lengths), y (RR length differences), int (size of cell),
 #    size (number of intervals in segment)
@@ -149,9 +157,11 @@ file_process = function(number, version){
 #    version ("M" or "C"), int (length of segment in seconds),
 #    int_min (minimum amount of intervals in segment)
 #    r_thresh (multiplier of SD of lengths for sample entropy)
+#    write_sep (writes .csv file for each subject individually (MIT only))
 # O: seg_info/NA (segment information for subject)
 segment_creator = function(subject, list_data, source, chop_left = 0, 
-                           chop_right = 0, version, int, int_min, r_thresh){
+                           chop_right = 0, version, int, int_min, r_thresh, 
+                           write_sep){
   # Gathers data for specific subject
   data = list_data[[subject]]
   
@@ -175,6 +185,9 @@ segment_creator = function(subject, list_data, source, chop_left = 0,
   # gathers lengths and differences
   lengths = c(data$RRLength[seg_start])
   differences = c(data$RRDiff[seg_start])
+  
+  # standard deviation of whole subject; used for sample entropy
+  sdrr_sub = sd(data$RRLength)
   
   # used to run sample entropy properly for 2017 data (n >= 5 (int_min))
   if (ind_end - ind_start + 2 < int_min){
@@ -208,7 +221,8 @@ segment_creator = function(subject, list_data, source, chop_left = 0,
       # number of RR intervals inside segment (1 feature)
       intervals = length(lengths)
       
-      # Not used for MIT-BIH dataset when there is a low number of valid intervals; 
+      # Not used for MIT-BIH dataset when there is a low number of valid 
+      # intervals
       if (intervals > int_min) {
 
         # determines if segment is AFIB or not
@@ -227,13 +241,15 @@ segment_creator = function(subject, list_data, source, chop_left = 0,
         rr_diff_var = var(differences)
         rr_diff_mean = mean(differences)
         
-        # sample entropy and NEC rate (2 features)
-        samp_ent = sampEnt(x = lengths, m = 2, r = r_thresh * sqrt(rr_length_var))
+        # sample entropy, coefficient of SampEnt and NEC rate (2 features)
+        samp_ent = sampEnt(x = lengths, m = 2, r = r_thresh * sdrr_sub)
+        cosen = CoSEn(samp_ent, r = r_thresh * sdrr_sub, avg = mean(lengths))
         necRate = NECRate(x = lengths, y = differences)
         
         # row of information for segment
         row = c(start, end, (end - start), intervals, heart_rate, props, 
-                rr_length_var, rr_diff_var, rr_diff_mean, samp_ent, necRate)
+                rr_length_var, rr_diff_var, rr_diff_mean, samp_ent, cosen, 
+                necRate)
         
         # creates new data frame of segment information or adds to data frame
         if (begin == T){
@@ -260,12 +276,12 @@ segment_creator = function(subject, list_data, source, chop_left = 0,
     class_names = c("State", "Start", "End", "Time", "Intervals", "HeartRate", 
                     "S-S", "S-Reg", "S-L", "Reg-S", "Reg-Reg", "Reg-L", "L-S", 
                     "L-Reg", "L-L", "RRVar", "dRRVar", "dRRMean", "SampEnt", 
-                    "NECRate")
+                    "CoSEn", "NECRate")
     seg_info = cbind(states, seg_info)
     colnames(seg_info) = class_names
     
     # Writes .csv file with information for particular subject
-    if (version == "M"){
+    if (version == "M" & write_sep == T){
       write.csv(seg_info, paste(source, "seg/", subject, ".csv", sep = ""), 
                 row.names = FALSE)
     }
@@ -280,9 +296,10 @@ segment_creator = function(subject, list_data, source, chop_left = 0,
 # Combines all subjects' segment information; writes all information to 
 # one file. 
 # I: list (list of all segment info), source (file path), 
-#    version ("M" or "C"), subjects (vector of subjects)
+#    version ("M" or "C"), subjects (vector of subjects),
+#    type (length of segments)
 # O: None
-combine_to_csv = function(list, source, version, subjects){
+combine_to_csv = function(list, source, version, subjects, type){
   # Used for file naimg purposes.
   vers = ifelse(version == "M", "MIT-BIH", "2017")
   
@@ -301,7 +318,7 @@ combine_to_csv = function(list, source, version, subjects){
   
   # Writes .csv information.
   write.csv(to_return, 
-            paste(source, "seg/all_seg_data_", vers, ".csv", sep = ""), 
+            paste(source, "seg/all_seg_data_", vers, "_", type, ".csv", sep = ""), 
             row.names = FALSE)
 }
 

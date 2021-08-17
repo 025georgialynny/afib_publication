@@ -9,6 +9,7 @@
 VERSION = "C"   # M for MIT-BIH, C for 2017 CinC dataset
 K = 5           # folds of cross-validation (only for 2017 preferably)
 SEED = 3        # seed for running machine learning algorithms
+SECONDS = 30    # segment lengths wanted
 DIR = "C:/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibrillation/Summer 2021 Testing/" # directory
 
 # Algorithms to run
@@ -44,10 +45,10 @@ sapply(TESTS, library_selector)
 # Retrieves all segment information for specific dataset.
 if (VERSION == "M"){ # "Data/MIT-BIH/seg" for MIT-BIH, "Data/2017/seg" for 2017 CinC dataset
   subpath = "Data/MIT-BIH/seg/"
-  samp_data = read.csv(paste(subpath, "all_seg_data_MIT-BIH.csv", sep = ""))
+  samp_data = read.csv(paste(subpath, "all_seg_data_MIT-BIH_", SECONDS, ".csv", sep = ""))
 } else {
   subpath = "Data/2017/seg/"
-  samp_data = read.csv(paste(subpath, "all_seg_data_2017.csv", sep = ""))
+  samp_data = read.csv(paste(subpath, "all_seg_data_2017_", SECONDS, ".csv", sep = ""))
 }
 
 # Converts state column from strings to factors.
