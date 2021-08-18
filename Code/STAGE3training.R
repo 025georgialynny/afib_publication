@@ -6,7 +6,7 @@
 
 #### SPECIFICATIONS ####################################################################################################
 
-VERSION = "M"   # M for MIT-BIH, C for 2017 CinC dataset
+VERSION = "C"   # M for MIT-BIH, C for 2017 CinC dataset
 K = 5           # folds of cross-validation (only for 2017 preferably)
 SEED = 3        # seed for running machine learning algorithms
 SECONDS = c(10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60)    # segment lengths wanted
@@ -22,8 +22,8 @@ DIR = "C:/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibril
 # SVM = support-vector machine
 # RFO = random forest
 # vector of codes below (for TESTS)
-TESTS = c("LOG", "LDA", "QDA", "GBM", "XGB", "LGB", "SVM", "RFO")
-#TESTS = c("SVM")
+#TESTS = c("LOG", "LDA", "QDA", "GBM", "XGB", "LGB", "SVM", "RFO")
+TESTS = c("LGB")
 
 # Indices of covariates to use in model
 # (Intervals, HeartRate, S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, 
@@ -50,7 +50,7 @@ for (time in 1:length(SECONDS)){
     samp_data = read.csv(paste(subpath, "all_seg_data_MIT-BIH_", SECONDS[time], ".csv", sep = ""))
   } else {
     subpath = "Data/2017/seg/"
-    samp_data = read.csv(paste(subpath, "all_seg_data_2017_", SECONDS[time], ".csv", sep = ""))
+    samp_data = read.csv(paste(subpath, "all_seg_data_2017.csv", sep = ""))
   }
   
   # Converts state column from strings to factors.
