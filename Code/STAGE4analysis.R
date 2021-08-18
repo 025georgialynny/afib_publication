@@ -1,3 +1,107 @@
+## Jericho Lawson
+## Summer 2019, 2021
+## Analysis for Results from Stage 3 Code
+
+library(ggplot2)
+library(gridExtra)
+
+DIR = "C:/Users/mario/Documents/Internship and REU Stuff/UNCW 2019/Atrial_Fibrillation/Summer 2021 Testing/" # directory
+setwd(DIR)
+
+FILE = "Results/results_alltimes_8to16_all8_MIT.txt"
+
+text = read.delim(FILE, header = F)
+codes = c("LOG", "LDA", "QDA", "GBM", "XGB", "LGB", "SVM", "RFO")
+
+results = list()
+line = 1
+ind = 0
+extract = F
+dataframe = F
+
+info1 = c()
+info2 = c()
+info3 = c()
+info4 = c()
+
+while (line <= dim(text)[1]){
+
+  if (substr(text[line, 1], 1, 18) == "[1] Segment Length"){
+    
+    if (length(results) == 0){
+      extract = T
+    }
+    
+    ind = ind + 1
+    results[[ind]] = list()
+    
+    info1 = c(info1, rep(substr(text[line, 1], 21, nchar(text[line, 1])), 8))
+    info2 = c(info2, rep(substr(text[line + 1, 1], 17, nchar(text[line + 1, 1])), 8))
+    info3 = c(info3, rep(substr(text[line + 2, 1], 14, nchar(text[line + 2, 1])), 8))
+    
+    line = line + 3
+  } else if (extract == T & nchar(text[line, 1]) == 4 & substr(text[line, 1], 2, 4) %in% codes){
+    
+    info4 = c(info4, substr(text[line, 1], 2, 4))
+    
+    metrics = c()
+    
+    # will add mechanism to extract confusion matrix at later time
+    
+    line = line + 6
+    
+    for (add in seq(0, 8, 2)){
+      metrics = c(metrics, as.numeric(substr(text[line + add + 1, 1], 5, nchar(text[line + add + 1, 1]))))
+    }
+    
+    line = line + 10
+    
+    if (dataframe == F){
+      data = as.data.frame(matrix(metrics, nrow = 1, ncol = length(metrics)))
+      dataframe = T
+    } else {
+      data = rbind(data, metrics)
+    }
+
+  } else {
+    line = line + 1
+  }
+}
+
+data = cbind(info4, info1, info2, info3, data)
+colnames(data) = c("algorithm", "length", "covariates", "datatype", "sensitivity", "specificity", "f1", "accuracy", "comptime")
+
+
+# comptime comparison
+p1 = ggplot(data, aes(x = length, y = comptime, group = algorithm)) + geom_line(aes(color = algorithm)) + geom_point(aes(color = algorithm))
+
+# sensitivity comparison
+p2 = ggplot(data, aes(x = length, y = sensitivity, group = algorithm)) + geom_line(aes(color = algorithm)) + geom_point(aes(color = algorithm))
+
+# specificity comparison
+p3 = ggplot(data, aes(x = length, y = specificity, group = algorithm)) + geom_line(aes(color = algorithm)) + geom_point(aes(color = algorithm))
+
+# f1 score comparison
+p4 = ggplot(data, aes(x = length, y = f1, group = algorithm)) + geom_line(aes(color = algorithm)) + geom_point(aes(color = algorithm))
+
+# accuracy comparison
+p5 = ggplot(data, aes(x = length, y = accuracy, group = algorithm)) + geom_line(aes(color = algorithm)) + geom_point(aes(color = algorithm))
+
+grid.arrange(p1, p2, p3, p4, p5, nrow = 3)
+
+
+
+
+p1
+p2
+p3
+p4
+p5
+
+
+############################ DO NOT RUN CODE BELOW ##################################################################################################
+
+
 # originally taken from STAGE3training.R
 
 #### Graph Creation #### (Optional) ###############################################################

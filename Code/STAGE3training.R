@@ -75,10 +75,10 @@ for (time in 1:length(SECONDS)){
   metrics = lapply(res, metrics_f)
   
   # Prints out results.
-  paste("Segment Length:", SECONDS[time])
-  paste("Covariates:", paste(colnames(samp_data)[COVARIATES], collapse = ", "))
-  paste("Version:", VERSION)
-  metrics
+  print(paste("Segment Length:", SECONDS[time]))
+  print(paste("Covariates:", paste(colnames(samp_data)[COVARIATES], collapse = ", ")))
+  print(paste("Version:", VERSION))
+  print(metrics)
 }
 
 
