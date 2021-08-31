@@ -1,0 +1,35 @@
+Loaded gbm 2.1.8
+Loading required package: R6
+
+Attaching package: ‘lightgbm’
+
+The following objects are masked from ‘package:xgboost’:
+
+    getinfo, setinfo, slice
+
+randomForest 4.6-14
+Type rfNews() to see new features/changes/bug fixes.
+$LOG
+NULL
+
+$LDA
+[1] "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$QDA
+[1] "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$GBM
+[1] "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$XGB
+ [1] "xgboost"   "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$LGB
+ [1] "lightgbm"  "R6"        "xgboost"   "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$SVM
+ [1] "e1071"     "lightgbm"  "R6"        "xgboost"   "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$RFO
+ [1] "randomForest" "e1071"        "lightgbm"     "R6"           "xgboost"      "gbm"          "MASS"         "stats"        "graphics"     "utils"        "datasets"     "grDevices"    "methods"      "base"        
+
