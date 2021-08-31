@@ -1,6 +1,8 @@
 # Large files
 mit-bih-raw/*
 data/*
+mit_bih_extracted/*
+
 
 
 # History files

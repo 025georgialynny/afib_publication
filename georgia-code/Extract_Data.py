@@ -41,12 +41,23 @@ def download_mit_bih(download_path = "../mit-bih-raw/"):
 
 
 
-def extract_mit_bih(mitbih_path = '../mit-bih-raw/files/'):
+def extract_mit_bih(mitbih_path = '../mit-bih-raw/files/', save_path = "../mit_bih_extracted/", reload_flag = True):
     rlist = []
     records = mitbih_path + "RECORDS"
     if not os.path.exists(records):
         sys.exit("\n\tERROR: path " + records + " does not exist!\n\tRun function download_mit_bih() or check file location for the RECORDS file")
         return
+    
+    if not os.path.isdir(save_path):
+        os.mkdir(save_path)
+        os.mkdir(save_path + "dataframes/")
+        os.mkdir(save_path + "extracted_csv/")
+    elif not os.path.isdir(save_path + "dataframes/"):
+        os.mkdir(save_path + "dataframes/")
+        if not os.path.isdir(save_path + "extracted_csv/"):
+            os.mkdir(save_path + "extracted_csv/")
+    elif not os.path.isdir(save_path + "extracted_csv/"):
+        os.mkdir(save_path + "extracted_csv/")
 
     with open(records) as rfile:
         for record in rfile:
@@ -89,5 +100,66 @@ def extract_mit_bih(mitbih_path = '../mit-bih-raw/files/'):
             print(exep) # Alert the user of an exception
             bad_list.append(x) # add to the bad list
     
-    return(list(good_list), list(bad_list), list(qrs), list(atr_label), list(atr_locs))
-          
+    subject_dataframes = [] # Initialize the subject_dataframes - will hold all of our subject dataframes
+
+    atr_dics = [] #Initialize the array that will hold the dictionary for each subject
+
+    for idxs,lab in enumerate(atr_label):
+        atr_dic = {} #Initialize dictionary for each subject
+        for idx,x in enumerate(lab):
+            if x not in atr_dic.keys():
+                atr_dic[x] = [] #Add dictionary key if does not exist
+            atr_dic[x].append([atr_locs[idxs][idx], atr_locs[idxs][idx+1]]) #Insert range for each rhythm
+        atr_dics.append(atr_dic) #Add to dictionary array
+    
+    
+    for s, _ in enumerate(tqdm(good_list)): # Iterate through all of the subjects that we have complete data of 
+        subj = pd.DataFrame( # The below statements initialize our datafram. The first to columns will be our given signals, and the rest we initialize to 0
+            data = np.transpose(np.array([ # First we give our data, for pandas they want the data by row instead of by column, so we use transpose to get the proper format
+                                                   [x[0] for x in samples[s][0]],
+                                                   [x[1] for x in samples[s][0]],
+                                                   np.zeros(len(samples[s][0])), # np.zeros makes an array of zeros with the given lenth
+                                                   np.zeros(len(samples[s][0])), 
+                                                   np.zeros(len(samples[s][0])), 
+                                                   np.zeros(len(samples[s][0])), 
+                                            ])
+                               ),
+            columns = ['Signal 1', 'Signal 2', 'R-Peak', 'Normal', 'AFIB', 'Other'] # Here we name our columns to match the dataframe we outlined above
+        )
+        norm = [] # Initialize the norm array which will list every index the person is in a normal rhythm
+        if '(N' in atr_dics[s].keys():
+            for x in atr_dics[s]['(N']: # Then we iterate through our ranges we extracted above
+                norm = norm + list(range(x[0], x[1])) # And add all values in the range to our norm array
+        af = [] # Then we do the same steps above for AFIB rhythms
+        if '(AFIB' in atr_dics[s].keys():
+            for x in atr_dics[s]['(AFIB']:
+                af = af + list(range(x[0], x[1]))
+        subj['R-Peak']= subj.index.isin(qrs[s]) # the isin() function of a DataFram index will return true if the index is in that list and false if it is not
+                                                # then, we can initialize our dataFrame with correct values based on that
+        subj['Normal']= subj.index.isin(norm)
+        subj['AFIB'] = subj.index.isin(af)
+        subj['Other'] = ~subj.index.isin(np.append(norm, af)) # Because we are classifying AFIB specifically we define other as any rhythm not in the norm or AFIB list
+
+        subject_dataframes.append(subj) # Add the dataframe we built to our to array that holds all of our subjects' dataframes
+        
+    for idx, x in enumerate(tqdm(good_list)): 
+        subject_dataframes[idx].to_csv(save_path + 'dataframes/'+x+'.csv') # Pandas DataFrames have a built in to_csv() function which whill save it at the passed path
+
+    np.savetxt(save_path + 'dataframes/' + "subject_list.csv", good_list, delimiter=",",  fmt='%s') 
+       # We'll load the complete list of subjects as well so that we can easily recreate the file names
+
+    np.savetxt(save_path + "extracted_csv/" + "subject_list.csv", good_list, delimiter=",",  fmt='%s') #Save the names in the folder 
+    for idx, x in enumerate(tqdm(good_list)): # Iterate through our subjects
+        if not os.path.exists(save_path + "extracted_csv/"+x+"_signals.csv") or reload_flag:
+            np.savetxt(save_path + "extracted_csv/"+x+"_signals.csv", np.array(samples[idx][0]), delimiter=",") # numPy has a savetxt() function which by setting the delimiter as ',' we can 
+                                                                                                # simulate a to_csv() function 
+        if not os.path.exists(save_path + "extracted_csv/"+x+"_rpeaks.csv") or reload_flag:
+                np.savetxt(save_path + "extracted_csv/"+x+"_rpeaks.csv", np.array(qrs[idx]), delimiter=",")      
+        if not os.path.exists(save_path + "extracted_csv/"+x+"_headers.pkl") or reload_flag:
+            with open(save_path + "extracted_csv/"+x+"_headers.pkl", 'wb') as picklefile: # nomPy has no way to save a dictionary as a CSV so we use the pickle package
+                                        # First we open up the file we would like to write to
+                pickle.dump(samples[idx][1], picklefile)
+        if not os.path.exists(save_path + "extracted_csv/"+x+"_rhythms.pkl") or reload_flag:
+            with open(save_path + "extracted_csv/"+x+"_rhythms.pkl", 'wb') as picklefile:
+                pickle.dump(atr_dics[idx], picklefile)
+
