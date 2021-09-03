@@ -33,188 +33,196 @@ $SVM
 $RFO
  [1] "randomForest" "e1071"        "lightgbm"     "R6"           "xgboost"      "gbm"          "MASS"         "stats"        "graphics"     "utils"        "datasets"     "grDevices"    "methods"      "base"        
 
-There were 23 warnings (use warnings() to see them)
+[1] "Segment Length: 30"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L"
+[1] "Version: C"
 $LOG
 $LOG$confusion
       
-           N  AFIB
-  N    15523   733
-  AFIB  1221  9626
+          N AFIB
+  N    7522  174
+  AFIB  417  306
 
 $LOG$sensitivity
-[1] 0.8874343
+[1] 0.4232365
 
 $LOG$specificity
-[1] 0.954909
+[1] 0.9773909
 
 $LOG$f1
-[1] 0.9078563
+[1] 0.5087282
 
 $LOG$accuracy
-[1] 0.9279047
+[1] 0.9298016
 
 $LOG$time
-[1] 4.730545
+[1] 0.237448
 
 
 $LDA
 $LDA$confusion
       
-           N  AFIB
-  N    15557   699
-  AFIB   984  9863
+          N AFIB
+  N    7374  322
+  AFIB  260  463
 
 $LDA$sensitivity
-[1] 0.9092837
+[1] 0.6403873
 
 $LDA$specificity
-[1] 0.9570005
+[1] 0.9581601
 
 $LDA$f1
-[1] 0.9213882
+[1] 0.6140584
 
 $LDA$accuracy
-[1] 0.9379036
+[1] 0.9308706
 
 $LDA$time
-[1] 2.01573
+[1] 0.1549926
 
 
 $QDA
 $QDA$confusion
       
-           N  AFIB
-  N    14818  1438
-  AFIB   829 10018
+          N AFIB
+  N    7067  629
+  AFIB  218  505
 
 $QDA$sensitivity
-[1] 0.9235733
+[1] 0.6984786
 
 $QDA$specificity
-[1] 0.9115404
+[1] 0.9182692
 
 $QDA$f1
-[1] 0.8983545
+[1] 0.543888
 
 $QDA$accuracy
-[1] 0.9163561
+[1] 0.8993942
 
 $QDA$time
-[1] 1.710038
+[1] 0.1491697
 
 
 $GBM
 $GBM$confusion
       
-           N  AFIB
-  N    15704   552
-  AFIB   826 10021
+          N AFIB
+  N    7512  184
+  AFIB  330  393
 
 $GBM$sensitivity
-[1] 0.9238499
+[1] 0.5435685
 
 $GBM$specificity
-[1] 0.9660433
+[1] 0.9760915
 
 $GBM$f1
-[1] 0.9356676
+[1] 0.6046154
 
 $GBM$accuracy
-[1] 0.9491569
+[1] 0.9389476
 
 $GBM$time
-[1] 2149.002
+[1] 115.4946
 
 
 $XGB
 $XGB$confusion
       
-           N  AFIB
-  N    15526   730
-  AFIB   722 10125
+          N AFIB
+  N    7198  498
+  AFIB  212  511
 
 $XGB$sensitivity
-[1] 0.9334378
+[1] 0.7067773
 
 $XGB$specificity
-[1] 0.9550935
+[1] 0.9352911
 
 $XGB$f1
-[1] 0.9330937
+[1] 0.5900693
 
 $XGB$accuracy
-[1] 0.9464266
+[1] 0.9156669
 
 $XGB$time
-[1] 2572.751
+[1] 38.49496
 
 
 $LGB
 $LGB$confusion
       
-           N  AFIB
-  N    15615   641
-  AFIB   891  9956
+          N AFIB
+  N    7502  194
+  AFIB  330  393
 
 $LGB$sensitivity
-[1] 0.9178575
+[1] 0.5435685
 
 $LGB$specificity
-[1] 0.9605684
+[1] 0.9747921
 
 $LGB$f1
-[1] 0.9285581
+[1] 0.6
 
 $LGB$accuracy
-[1] 0.9434749
+[1] 0.9377598
 
 $LGB$time
-[1] 256.7512
+[1] 0.8200042
 
 
 $SVM
 $SVM$confusion
       
-           N  AFIB
-  N    15472   784
-  AFIB  1235  9612
+          N AFIB
+  N    7637   59
+  AFIB  633   90
 
 $SVM$sensitivity
-[1] 0.8861436
+[1] 0.1244813
 
 $SVM$specificity
-[1] 0.9517717
+[1] 0.9923337
 
 $SVM$f1
-[1] 0.9049569
+[1] 0.206422
 
 $SVM$accuracy
-[1] 0.9255064
+[1] 0.917805
 
 $SVM$time
-[1] 243.4027
+[1] 5.343647
 
 
 $RFO
 $RFO$confusion
       
-           N  AFIB
-  N    15622   634
-  AFIB   873  9974
+          N AFIB
+  N    7522  174
+  AFIB  341  382
 
 $RFO$sensitivity
-[1] 0.9195169
+[1] 0.5283541
 
 $RFO$specificity
-[1] 0.960999
+[1] 0.9773909
 
 $RFO$f1
-[1] 0.92976
+[1] 0.5973417
 
 $RFO$accuracy
-[1] 0.9443973
+[1] 0.9388288
 
 $RFO$time
-[1] 349.2202
+[1] 17.2693
 
 
+Warning messages:
+1: In lda.default(x, grouping, ...) : variables are collinear
+2: In lda.default(x, grouping, ...) : variables are collinear
+3: In lda.default(x, grouping, ...) : variables are collinear
+4: In lda.default(x, grouping, ...) : variables are collinear
+5: In lda.default(x, grouping, ...) : variables are collinear
