@@ -1,0 +1,75 @@
+Observations from the 10-60 second tests
+
+Computation times
+- Logistic regression, QDA, and LDA are faster methods
+- LightGBM, random forest, and SVM are the average methods
+- GBM and XGBoost are the slower methods
+- Exponential reduction in computation time as the segment length increases
+- For 60 seconds:
+-- Logistic: 1.3057160
+-- LDA: 0.7539022
+-- QDA: 0.5044122
+-- GBM: 920.8063000
+-- XGBoost: 1089.0640000
+-- LightGBM: 15.1270000
+-- SVM: 80.0278600
+-- Random forest: 147.0019000
+
+Sensitivity
+- Sensitivity goes up as segment length increases; peaks at 60 seconds
+- XGBoost has best sensitivity for most segment lengths; 93.8% for XGBoost
+- LDA has worst sensitivity for most all segment lengths; 87.7% for LDA at 60 seconds
+- For 60 seconds:
+-- Logistic: 0.8914118  
+-- LDA: 0.8765794 
+-- QDA: 0.9353598
+-- GBM: 0.9284014
+-- XGBoost: 0.9377403 
+-- LightGBM: 0.9252884
+-- SVM: 0.8996521 
+-- Random forest: 0.9274858
+
+Specificity
+- Specificity goes up as segment length increases; for most algorithms, value peaks at 60 seconds
+- LDA has best specificity for all segment lengths; 96.8% for LDA at 60 seconds
+- QDA, by far, has the worst specificity for all segment lengths; 89.1% for QDA at 60 seconds
+- For 60 seconds:
+-- Logistic: 0.9610914
+-- LDA: 0.9681879
+-- QDA: 0.8909825
+-- GBM: 0.9563196
+-- XGBoost: 0.9509360
+-- LightGBM: 0.9560749
+-- SVM: 0.9564419
+-- Random forest: 0.9571761
+
+Accuracy
+- Generally, XGBoost has the best accuracy out of all algorithms
+- Random forest, GBM, and LGB are all very accurate
+- XGBoost at 94.6% at 60 seconds
+- QDA has the worst accuracy for all segment lengths; 90.9% at 60 seconds
+- Accuracy increases as segment length increases
+- For 60 seconds:
+-- Logistic: 0.9331818
+-- LDA: 0.9314948 
+-- QDA: 0.9087575
+-- GBM: 0.9451372
+-- XGBoost: 0.9456506 
+-- LightGBM: 0.9437436
+-- SVM: 0.9336952
+-- Random forest:  0.9452838
+
+F1 Score
+- XGBoost has best F1 score out of all algorithms for most segment lengths
+- 93.3% for XGBoost
+- QDA has worst F1 score for all segment lengths; 89.1% at 60 seconds
+- F1 scores increase as segment length increases
+- For 60 seconds:
+-- Logistic: 0.9144360
+-- LDA: 0.9111153
+-- QDA: 0.8914485
+-- GBM: 0.9313005
+-- XGBoost: 0.9325321
+-- LightGBM: 0.9294583
+-- SVM: 0.9157502
+-- Random forest: 0.9314086

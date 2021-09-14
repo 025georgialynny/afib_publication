@@ -1,0 +1,2093 @@
+Loaded gbm 2.1.8
+Loading required package: R6
+
+Attaching package: ‘lightgbm’
+
+The following objects are masked from ‘package:xgboost’:
+
+    getinfo, setinfo, slice
+
+randomForest 4.6-14
+Type rfNews() to see new features/changes/bug fixes.
+$LOG
+NULL
+
+$LDA
+[1] "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$QDA
+[1] "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$GBM
+[1] "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$XGB
+ [1] "xgboost"   "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$LGB
+ [1] "lightgbm"  "R6"        "xgboost"   "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$SVM
+ [1] "e1071"     "lightgbm"  "R6"        "xgboost"   "gbm"       "MASS"      "stats"     "graphics"  "utils"     "datasets"  "grDevices" "methods"   "base"     
+
+$RFO
+ [1] "randomForest" "e1071"        "lightgbm"     "R6"           "xgboost"      "gbm"          "MASS"         "stats"        "graphics"     "utils"        "datasets"     "grDevices"    "methods"      "base"        
+
+[1] "Segment Length: 10"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+           N  AFIB
+  N    44353  3068
+  AFIB  2960 28840
+
+$LOG$sensitivity
+[1] 0.9069182
+
+$LOG$specificity
+[1] 0.9353029
+
+$LOG$f1
+[1] 0.9053808
+
+$LOG$accuracy
+[1] 0.9239091
+
+$LOG$time
+[1] 14.25618
+
+
+$LDA
+$LDA$confusion
+      
+           N  AFIB
+  N    44544  2877
+  AFIB  3633 28167
+
+$LDA$sensitivity
+[1] 0.8857547
+
+$LDA$specificity
+[1] 0.9393307
+
+$LDA$f1
+[1] 0.8964102
+
+$LDA$accuracy
+[1] 0.9178248
+
+$LDA$time
+[1] 7.551871
+
+
+$QDA
+$QDA$confusion
+      
+           N  AFIB
+  N    42347  5074
+  AFIB  3431 28369
+
+$QDA$sensitivity
+[1] 0.8921069
+
+$QDA$specificity
+[1] 0.893001
+
+$QDA$f1
+[1] 0.8696412
+
+$QDA$accuracy
+[1] 0.8926421
+
+$QDA$time
+[1] 6.416346
+
+
+$GBM
+$GBM$confusion
+      
+           N  AFIB
+  N    44621  2800
+  AFIB  2510 29290
+
+$GBM$sensitivity
+[1] 0.9210692
+
+$GBM$specificity
+[1] 0.9409544
+
+$GBM$f1
+[1] 0.9168884
+
+$GBM$accuracy
+[1] 0.9329723
+
+$GBM$time
+[1] 9250.516
+
+
+$XGB
+$XGB$confusion
+      
+           N  AFIB
+  N    44161  3260
+  AFIB  1888 29912
+
+$XGB$sensitivity
+[1] 0.9406289
+
+$XGB$specificity
+[1] 0.9312541
+
+$XGB$f1
+[1] 0.9207659
+
+$XGB$accuracy
+[1] 0.9350172
+
+$XGB$time
+[1] 4194.782
+
+
+$LGB
+$LGB$confusion
+      
+           N  AFIB
+  N    44704  2717
+  AFIB  2341 29459
+
+$LGB$sensitivity
+[1] 0.9263836
+
+$LGB$specificity
+[1] 0.9427047
+
+$LGB$f1
+[1] 0.9209391
+
+$LGB$accuracy
+[1] 0.9361533
+
+$LGB$time
+[1] 19.29808
+
+
+$SVM
+$SVM$confusion
+      
+           N  AFIB
+  N    44226  3195
+  AFIB  2983 28817
+
+$SVM$sensitivity
+[1] 0.906195
+
+$SVM$specificity
+[1] 0.9326248
+
+$SVM$f1
+[1] 0.9031844
+
+$SVM$accuracy
+[1] 0.9220156
+
+$SVM$time
+[1] 2585.346
+
+
+$RFO
+$RFO$confusion
+      
+           N  AFIB
+  N    44690  2731
+  AFIB  2366 29434
+
+$RFO$sensitivity
+[1] 0.9255975
+
+$RFO$specificity
+[1] 0.9424095
+
+$RFO$f1
+[1] 0.9203158
+
+$RFO$accuracy
+[1] 0.935661
+
+$RFO$time
+[1] 1432.763
+
+
+[1] "Segment Length: 15"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+           N  AFIB
+  N    30455  1592
+  AFIB  1718 19747
+
+$LOG$sensitivity
+[1] 0.9199627
+
+$LOG$specificity
+[1] 0.950323
+
+$LOG$f1
+[1] 0.9226708
+
+$LOG$accuracy
+[1] 0.9381447
+
+$LOG$time
+[1] 7.781063
+
+
+$LDA
+$LDA$confusion
+      
+           N  AFIB
+  N    30382  1665
+  AFIB  2072 19393
+
+$LDA$sensitivity
+[1] 0.9034708
+
+$LDA$specificity
+[1] 0.9480451
+
+$LDA$f1
+[1] 0.9121181
+
+$LDA$accuracy
+[1] 0.9301652
+
+$LDA$time
+[1] 3.371403
+
+
+$QDA
+$QDA$confusion
+      
+           N  AFIB
+  N    28779  3268
+  AFIB  1823 19642
+
+$QDA$sensitivity
+[1] 0.915071
+
+$QDA$specificity
+[1] 0.8980248
+
+$QDA$f1
+[1] 0.8852732
+
+$QDA$accuracy
+[1] 0.9048625
+
+$QDA$time
+[1] 2.78142
+
+
+$GBM
+$GBM$confusion
+      
+           N  AFIB
+  N    30595  1452
+  AFIB  1408 20057
+
+$GBM$sensitivity
+[1] 0.9344048
+
+$GBM$specificity
+[1] 0.9546915
+
+$GBM$f1
+[1] 0.9334481
+
+$GBM$accuracy
+[1] 0.946554
+
+$GBM$time
+[1] 5368.129
+
+
+$XGB
+$XGB$confusion
+      
+           N  AFIB
+  N    30316  1731
+  AFIB  1103 20362
+
+$XGB$sensitivity
+[1] 0.948614
+
+$XGB$specificity
+[1] 0.9459856
+
+$XGB$f1
+[1] 0.9349373
+
+$XGB$accuracy
+[1] 0.9470399
+
+$XGB$time
+[1] 1239.572
+
+
+$LGB
+$LGB$confusion
+      
+           N  AFIB
+  N    30524  1523
+  AFIB  1271 20194
+
+$LGB$sensitivity
+[1] 0.9407873
+
+$LGB$specificity
+[1] 0.9524761
+
+$LGB$f1
+[1] 0.9352971
+
+$LGB$accuracy
+[1] 0.9477874
+
+$LGB$time
+[1] 53.1192
+
+
+$SVM
+$SVM$confusion
+      
+           N  AFIB
+  N    30369  1678
+  AFIB  1682 19783
+
+$SVM$sensitivity
+[1] 0.9216399
+
+$SVM$specificity
+[1] 0.9476394
+
+$SVM$f1
+[1] 0.9217258
+
+$SVM$accuracy
+[1] 0.9372103
+
+$SVM$time
+[1] 1241.699
+
+
+$RFO
+$RFO$confusion
+      
+           N  AFIB
+  N    30552  1495
+  AFIB  1336 20129
+
+$RFO$sensitivity
+[1] 0.9377591
+
+$RFO$specificity
+[1] 0.9533498
+
+$RFO$f1
+[1] 0.9342988
+
+$RFO$accuracy
+[1] 0.947096
+
+$RFO$time
+[1] 923.7549
+
+
+[1] "Segment Length: 20"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+           N  AFIB
+  N    23083  1119
+  AFIB  1273 14920
+
+$LOG$sensitivity
+[1] 0.9213858
+
+$LOG$specificity
+[1] 0.9537642
+
+$LOG$f1
+[1] 0.925788
+
+$LOG$accuracy
+[1] 0.9407848
+
+$LOG$time
+[1] 5.383698
+
+
+$LDA
+$LDA$confusion
+      
+           N  AFIB
+  N    23054  1148
+  AFIB  1404 14789
+
+$LDA$sensitivity
+[1] 0.9132959
+
+$LDA$specificity
+[1] 0.9525659
+
+$LDA$f1
+[1] 0.9205727
+
+$LDA$accuracy
+[1] 0.9368239
+
+$LDA$time
+[1] 2.428641
+
+
+$QDA
+$QDA$confusion
+      
+           N  AFIB
+  N    21835  2367
+  AFIB  1261 14932
+
+$QDA$sensitivity
+[1] 0.9221268
+
+$QDA$specificity
+[1] 0.9021982
+
+$QDA$f1
+[1] 0.8916756
+
+$QDA$accuracy
+[1] 0.9101869
+
+$QDA$time
+[1] 2.013809
+
+
+$GBM
+$GBM$confusion
+      
+           N  AFIB
+  N    23267   935
+  AFIB  1012 15181
+
+$GBM$sensitivity
+[1] 0.9375039
+
+$GBM$specificity
+[1] 0.9613668
+
+$GBM$f1
+[1] 0.9397382
+
+$GBM$accuracy
+[1] 0.951801
+
+$GBM$time
+[1] 3989.323
+
+
+$XGB
+$XGB$confusion
+      
+           N  AFIB
+  N    23066  1136
+  AFIB   789 15404
+
+$XGB$sensitivity
+[1] 0.9512752
+
+$XGB$specificity
+[1] 0.9530617
+
+$XGB$f1
+[1] 0.9411908
+
+$XGB$accuracy
+[1] 0.9523456
+
+$XGB$time
+[1] 1141.75
+
+
+$LGB
+$LGB$confusion
+      
+           N  AFIB
+  N    23263   939
+  AFIB   981 15212
+
+$LGB$sensitivity
+[1] 0.9394183
+
+$LGB$specificity
+[1] 0.9612016
+
+$LGB$f1
+[1] 0.9406381
+
+$LGB$accuracy
+[1] 0.9524694
+
+$LGB$time
+[1] 34.05102
+
+
+$SVM
+$SVM$confusion
+      
+           N  AFIB
+  N    23018  1184
+  AFIB  1168 15025
+
+$SVM$sensitivity
+[1] 0.9278701
+
+$SVM$specificity
+[1] 0.9510784
+
+$SVM$f1
+[1] 0.9274119
+
+$SVM$accuracy
+[1] 0.941775
+
+$SVM$time
+[1] 668.5037
+
+
+$RFO
+$RFO$confusion
+      
+           N  AFIB
+  N    23263   939
+  AFIB   983 15210
+
+$RFO$sensitivity
+[1] 0.9392948
+
+$RFO$specificity
+[1] 0.9612016
+
+$RFO$f1
+[1] 0.9405726
+
+$RFO$accuracy
+[1] 0.9524199
+
+$RFO$time
+[1] 670.3423
+
+
+[1] "Segment Length: 25"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+           N  AFIB
+  N    18662   799
+  AFIB   947 12041
+
+$LOG$sensitivity
+[1] 0.9270865
+
+$LOG$specificity
+[1] 0.9589435
+
+$LOG$f1
+[1] 0.9323989
+
+$LOG$accuracy
+[1] 0.9461925
+
+$LOG$time
+[1] 4.562175
+
+
+$LDA
+$LDA$confusion
+      
+           N  AFIB
+  N    18624   837
+  AFIB  1075 11913
+
+$LDA$sensitivity
+[1] 0.9172313
+
+$LDA$specificity
+[1] 0.9569909
+
+$LDA$f1
+[1] 0.925713
+
+$LDA$accuracy
+[1] 0.9410768
+
+$LDA$time
+[1] 2.062684
+
+
+$QDA
+$QDA$confusion
+      
+           N  AFIB
+  N    17616  1845
+  AFIB   961 12027
+
+$QDA$sensitivity
+[1] 0.9260086
+
+$QDA$specificity
+[1] 0.905195
+
+$QDA$f1
+[1] 0.8955324
+
+$QDA$accuracy
+[1] 0.9135258
+
+$QDA$time
+[1] 1.705487
+
+
+$GBM
+$GBM$confusion
+      
+           N  AFIB
+  N    18769   692
+  AFIB   833 12155
+
+$GBM$sensitivity
+[1] 0.9358639
+
+$GBM$specificity
+[1] 0.9644417
+
+$GBM$f1
+[1] 0.9409716
+
+$GBM$accuracy
+[1] 0.9530032
+
+$GBM$time
+[1] 3204.349
+
+
+$XGB
+$XGB$confusion
+      
+           N  AFIB
+  N    18683   778
+  AFIB   670 12318
+
+$XGB$sensitivity
+[1] 0.9484139
+
+$XGB$specificity
+[1] 0.9600226
+
+$XGB$f1
+[1] 0.944487
+
+$XGB$accuracy
+[1] 0.9553761
+
+$XGB$time
+[1] 919.1236
+
+
+$LGB
+$LGB$confusion
+      
+           N  AFIB
+  N    18796   665
+  AFIB   770 12218
+
+$LGB$sensitivity
+[1] 0.9407145
+
+$LGB$specificity
+[1] 0.9658291
+
+$LGB$f1
+[1] 0.9445325
+
+$LGB$accuracy
+[1] 0.9557768
+
+$LGB$time
+[1] 25.65694
+
+
+$SVM
+$SVM$confusion
+      
+           N  AFIB
+  N    18606   855
+  AFIB   919 12069
+
+$SVM$sensitivity
+[1] 0.9292424
+
+$SVM$specificity
+[1] 0.956066
+
+$SVM$f1
+[1] 0.9315375
+
+$SVM$accuracy
+[1] 0.9453296
+
+$SVM$time
+[1] 339.1556
+
+
+$RFO
+$RFO$confusion
+      
+           N  AFIB
+  N    18769   692
+  AFIB   884 12104
+
+$RFO$sensitivity
+[1] 0.9319372
+
+$RFO$specificity
+[1] 0.9644417
+
+$RFO$f1
+[1] 0.9388768
+
+$RFO$accuracy
+[1] 0.9514315
+
+$RFO$time
+[1] 511.756
+
+
+[1] "Segment Length: 30"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+           N  AFIB
+  N    15650   606
+  AFIB   759 10088
+
+$LOG$sensitivity
+[1] 0.9300267
+
+$LOG$specificity
+[1] 0.9627215
+
+$LOG$f1
+[1] 0.9366325
+
+$LOG$accuracy
+[1] 0.9496366
+
+$LOG$time
+[1] 3.710832
+
+
+$LDA
+$LDA$confusion
+      
+           N  AFIB
+  N    15614   642
+  AFIB   881  9966
+
+$LDA$sensitivity
+[1] 0.9187794
+
+$LDA$specificity
+[1] 0.9605069
+
+$LDA$f1
+[1] 0.9290142
+
+$LDA$accuracy
+[1] 0.943807
+
+$LDA$time
+[1] 1.696101
+
+
+$QDA
+$QDA$confusion
+      
+           N  AFIB
+  N    14733  1523
+  AFIB   737 10110
+
+$QDA$sensitivity
+[1] 0.9320549
+
+$QDA$specificity
+[1] 0.9063115
+
+$QDA$f1
+[1] 0.8994662
+
+$QDA$accuracy
+[1] 0.9166144
+
+$QDA$time
+[1] 1.397421
+
+
+$GBM
+$GBM$confusion
+      
+           N  AFIB
+  N    15724   532
+  AFIB   619 10228
+
+$GBM$sensitivity
+[1] 0.9429335
+
+$GBM$specificity
+[1] 0.9672736
+
+$GBM$f1
+[1] 0.9467302
+
+$GBM$accuracy
+[1] 0.9575324
+
+$GBM$time
+[1] 2646.554
+
+
+$XGB
+$XGB$confusion
+      
+           N  AFIB
+  N    15652   604
+  AFIB   502 10345
+
+$XGB$sensitivity
+[1] 0.9537199
+
+$XGB$specificity
+[1] 0.9628445
+
+$XGB$f1
+[1] 0.9492567
+
+$XGB$accuracy
+[1] 0.9591927
+
+$XGB$time
+[1] 874.3952
+
+
+$LGB
+$LGB$confusion
+      
+           N  AFIB
+  N    15709   547
+  AFIB   612 10235
+
+$LGB$sensitivity
+[1] 0.9435789
+
+$LGB$specificity
+[1] 0.9663509
+
+$LGB$f1
+[1] 0.9464145
+
+$LGB$accuracy
+[1] 0.9572372
+
+$LGB$time
+[1] 8.051747
+
+
+$SVM
+$SVM$confusion
+      
+           N  AFIB
+  N    15556   700
+  AFIB   760 10087
+
+$SVM$sensitivity
+[1] 0.9299345
+
+$SVM$specificity
+[1] 0.956939
+
+$SVM$f1
+[1] 0.9325136
+
+$SVM$accuracy
+[1] 0.9461314
+
+$SVM$time
+[1] 288.9447
+
+
+$RFO
+$RFO$confusion
+      
+           N  AFIB
+  N    15697   559
+  AFIB   701 10146
+
+$RFO$sensitivity
+[1] 0.9353738
+
+$RFO$specificity
+[1] 0.9656127
+
+$RFO$f1
+[1] 0.9415367
+
+$RFO$accuracy
+[1] 0.9535107
+
+$RFO$time
+[1] 412.3014
+
+
+[1] "Segment Length: 35"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+           N  AFIB
+  N    13446   505
+  AFIB   651  8673
+
+$LOG$sensitivity
+[1] 0.9301802
+
+$LOG$specificity
+[1] 0.9638019
+
+$LOG$f1
+[1] 0.9375203
+
+$LOG$accuracy
+[1] 0.950333
+
+$LOG$time
+[1] 3.160698
+
+
+$LDA
+$LDA$confusion
+      
+           N  AFIB
+  N    13438   513
+  AFIB   754  8570
+
+$LDA$sensitivity
+[1] 0.9191334
+
+$LDA$specificity
+[1] 0.9632284
+
+$LDA$f1
+[1] 0.9311675
+
+$LDA$accuracy
+[1] 0.9455639
+
+$LDA$time
+[1] 1.424623
+
+
+$QDA
+$QDA$confusion
+      
+           N  AFIB
+  N    12637  1314
+  AFIB   614  8710
+
+$QDA$sensitivity
+[1] 0.9341484
+
+$QDA$specificity
+[1] 0.9058132
+
+$QDA$f1
+[1] 0.9003515
+
+$QDA$accuracy
+[1] 0.9171643
+
+$QDA$time
+[1] 1.160202
+
+
+$GBM
+$GBM$confusion
+      
+           N  AFIB
+  N    13493   458
+  AFIB   636  8688
+
+$GBM$sensitivity
+[1] 0.9317889
+
+$GBM$specificity
+[1] 0.9671708
+
+$GBM$f1
+[1] 0.9407688
+
+$GBM$accuracy
+[1] 0.9529968
+
+$GBM$time
+[1] 2396.939
+
+
+$XGB
+$XGB$confusion
+      
+           N  AFIB
+  N    13464   487
+  AFIB   471  8853
+
+$XGB$sensitivity
+[1] 0.9494852
+
+$XGB$specificity
+[1] 0.9650921
+
+$XGB$f1
+[1] 0.9486712
+
+$XGB$accuracy
+[1] 0.95884
+
+$XGB$time
+[1] 799.3354
+
+
+$LGB
+$LGB$confusion
+      
+           N  AFIB
+  N    13489   462
+  AFIB   612  8712
+
+$LGB$sensitivity
+[1] 0.9343629
+
+$LGB$specificity
+[1] 0.9668841
+
+$LGB$f1
+[1] 0.9419397
+
+$LGB$accuracy
+[1] 0.9538561
+
+$LGB$time
+[1] 87.87887
+
+
+$SVM
+$SVM$confusion
+      
+           N  AFIB
+  N    13382   569
+  AFIB   658  8666
+
+$SVM$sensitivity
+[1] 0.9294294
+
+$SVM$specificity
+[1] 0.9592144
+
+$SVM$f1
+[1] 0.9338865
+
+$SVM$accuracy
+[1] 0.9472825
+
+$SVM$time
+[1] 216.5948
+
+
+$RFO
+$RFO$confusion
+      
+           N  AFIB
+  N    13501   450
+  AFIB   659  8665
+
+$RFO$sensitivity
+[1] 0.9293222
+
+$RFO$specificity
+[1] 0.9677442
+
+$RFO$f1
+[1] 0.9398557
+
+$RFO$accuracy
+[1] 0.9523523
+
+$RFO$time
+[1] 340.449
+
+
+[1] "Segment Length: 40"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+           N  AFIB
+  N    11797   431
+  AFIB   515  7649
+
+$LOG$sensitivity
+[1] 0.9369182
+
+$LOG$specificity
+[1] 0.964753
+
+$LOG$f1
+[1] 0.9417631
+
+$LOG$accuracy
+[1] 0.9536093
+
+$LOG$time
+[1] 2.662764
+
+
+$LDA
+$LDA$confusion
+      
+           N  AFIB
+  N    11787   441
+  AFIB   631  7533
+
+$LDA$sensitivity
+[1] 0.9227095
+
+$LDA$specificity
+[1] 0.9639352
+
+$LDA$f1
+[1] 0.9335729
+
+$LDA$accuracy
+[1] 0.9474304
+
+$LDA$time
+[1] 1.294956
+
+
+$QDA
+$QDA$confusion
+      
+           N  AFIB
+  N    11082  1146
+  AFIB   519  7645
+
+$QDA$sensitivity
+[1] 0.9364282
+
+$QDA$specificity
+[1] 0.9062807
+
+$QDA$f1
+[1] 0.9017989
+
+$QDA$accuracy
+[1] 0.9183503
+
+$QDA$time
+[1] 1.048684
+
+
+$GBM
+$GBM$confusion
+      
+           N  AFIB
+  N    11821   407
+  AFIB   464  7700
+
+$GBM$sensitivity
+[1] 0.9431651
+
+$GBM$specificity
+[1] 0.9667157
+
+$GBM$f1
+[1] 0.9464692
+
+$GBM$accuracy
+[1] 0.9572872
+
+$GBM$time
+[1] 1940.786
+
+
+$XGB
+$XGB$confusion
+      
+           N  AFIB
+  N    11776   452
+  AFIB   373  7791
+
+$XGB$sensitivity
+[1] 0.9543116
+
+$XGB$specificity
+[1] 0.9630357
+
+$XGB$f1
+[1] 0.9497166
+
+$XGB$accuracy
+[1] 0.959543
+
+$XGB$time
+[1] 626.8833
+
+
+$LGB
+$LGB$confusion
+      
+           N  AFIB
+  N    11792   436
+  AFIB   455  7709
+
+$LGB$sensitivity
+[1] 0.9442675
+
+$LGB$specificity
+[1] 0.9643441
+
+$LGB$f1
+[1] 0.9453676
+
+$LGB$accuracy
+[1] 0.9563064
+
+$LGB$time
+[1] 11.93268
+
+
+$SVM
+$SVM$confusion
+      
+           N  AFIB
+  N    11740   488
+  AFIB   563  7601
+
+$SVM$sensitivity
+[1] 0.9310387
+
+$SVM$specificity
+[1] 0.9600916
+
+$SVM$f1
+[1] 0.935335
+
+$SVM$accuracy
+[1] 0.9484602
+
+$SVM$time
+[1] 168.9966
+
+
+$RFO
+$RFO$confusion
+      
+           N  AFIB
+  N    11806   422
+  AFIB   489  7675
+
+$RFO$sensitivity
+[1] 0.9401029
+
+$RFO$specificity
+[1] 0.965489
+
+$RFO$f1
+[1] 0.9439764
+
+$RFO$accuracy
+[1] 0.9553256
+
+$RFO$time
+[1] 286.0189
+
+
+[1] "Segment Length: 45"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+           N  AFIB
+  N    10506   376
+  AFIB   486  6777
+
+$LOG$sensitivity
+[1] 0.9330855
+
+$LOG$specificity
+[1] 0.9654475
+
+$LOG$f1
+[1] 0.9402053
+
+$LOG$accuracy
+[1] 0.9524938
+
+$LOG$time
+[1] 2.255131
+
+
+$LDA
+$LDA$confusion
+      
+           N  AFIB
+  N    10501   381
+  AFIB   568  6695
+
+$LDA$sensitivity
+[1] 0.9217954
+
+$LDA$specificity
+[1] 0.9649881
+
+$LDA$f1
+[1] 0.9338169
+
+$LDA$accuracy
+[1] 0.9476991
+
+$LDA$time
+[1] 1.1628
+
+
+$QDA
+$QDA$confusion
+      
+          N AFIB
+  N    9843 1039
+  AFIB  454 6809
+
+$QDA$sensitivity
+[1] 0.9374914
+
+$QDA$specificity
+[1] 0.9045212
+
+$QDA$f1
+[1] 0.9011978
+
+$QDA$accuracy
+[1] 0.9177184
+
+$QDA$time
+[1] 0.9615517
+
+
+$GBM
+$GBM$confusion
+      
+           N  AFIB
+  N    10518   364
+  AFIB   465  6798
+
+$GBM$sensitivity
+[1] 0.9359769
+
+$GBM$specificity
+[1] 0.9665503
+
+$GBM$f1
+[1] 0.9425303
+
+$GBM$accuracy
+[1] 0.9543125
+
+$GBM$time
+[1] 1853.883
+
+
+$XGB
+$XGB$confusion
+      
+           N  AFIB
+  N    10484   398
+  AFIB   380  6883
+
+$XGB$sensitivity
+[1] 0.94768
+
+$XGB$specificity
+[1] 0.9634258
+
+$XGB$f1
+[1] 0.9465072
+
+$XGB$accuracy
+[1] 0.9571232
+
+$XGB$time
+[1] 623.1491
+
+
+$LGB
+$LGB$confusion
+      
+           N  AFIB
+  N    10536   346
+  AFIB   483  6780
+
+$LGB$sensitivity
+[1] 0.9334986
+
+$LGB$specificity
+[1] 0.9682044
+
+$LGB$f1
+[1] 0.9423865
+
+$LGB$accuracy
+[1] 0.9543125
+
+$LGB$time
+[1] 11.04446
+
+
+$SVM
+$SVM$confusion
+      
+           N  AFIB
+  N    10452   430
+  AFIB   496  6767
+
+$SVM$sensitivity
+[1] 0.9317087
+
+$SVM$specificity
+[1] 0.9604852
+
+$SVM$f1
+[1] 0.9359613
+
+$SVM$accuracy
+[1] 0.9489667
+
+$SVM$time
+[1] 141.1656
+
+
+$RFO
+$RFO$confusion
+      
+           N  AFIB
+  N    10519   363
+  AFIB   491  6772
+
+$RFO$sensitivity
+[1] 0.9323971
+
+$RFO$specificity
+[1] 0.9666422
+
+$RFO$f1
+[1] 0.9406862
+
+$RFO$accuracy
+[1] 0.9529347
+
+$RFO$time
+[1] 247.4275
+
+
+[1] "Segment Length: 50"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+          N AFIB
+  N    9452  349
+  AFIB  453 6091
+
+$LOG$sensitivity
+[1] 0.9307763
+
+$LOG$specificity
+[1] 0.9643914
+
+$LOG$f1
+[1] 0.9382317
+
+$LOG$accuracy
+[1] 0.950933
+
+$LOG$time
+[1] 1.977437
+
+
+$LDA
+$LDA$confusion
+      
+          N AFIB
+  N    9466  335
+  AFIB  504 6040
+
+$LDA$sensitivity
+[1] 0.9229829
+
+$LDA$specificity
+[1] 0.9658198
+
+$LDA$f1
+[1] 0.9350569
+
+$LDA$accuracy
+[1] 0.9486693
+
+$LDA$time
+[1] 1.010439
+
+
+$QDA
+$QDA$confusion
+      
+          N AFIB
+  N    8858  943
+  AFIB  424 6120
+
+$QDA$sensitivity
+[1] 0.9352078
+
+$QDA$specificity
+[1] 0.9037853
+
+$QDA$f1
+[1] 0.899537
+
+$QDA$accuracy
+[1] 0.9163659
+
+$QDA$time
+[1] 0.860878
+
+
+$GBM
+$GBM$confusion
+      
+          N AFIB
+  N    9468  333
+  AFIB  402 6142
+
+$GBM$sensitivity
+[1] 0.9385697
+
+$GBM$specificity
+[1] 0.9660239
+
+$GBM$f1
+[1] 0.9435441
+
+$GBM$accuracy
+[1] 0.9550321
+
+$GBM$time
+[1] 1577.13
+
+
+$XGB
+$XGB$confusion
+      
+          N AFIB
+  N    9429  372
+  AFIB  290 6254
+
+$XGB$sensitivity
+[1] 0.9556846
+
+$XGB$specificity
+[1] 0.9620447
+
+$XGB$f1
+[1] 0.9497342
+
+$XGB$accuracy
+[1] 0.9594983
+
+$XGB$time
+[1] 550.0131
+
+
+$LGB
+$LGB$confusion
+      
+          N AFIB
+  N    9459  342
+  AFIB  365 6179
+
+$LGB$sensitivity
+[1] 0.9442237
+
+$LGB$specificity
+[1] 0.9651056
+
+$LGB$f1
+[1] 0.945886
+
+$LGB$accuracy
+[1] 0.9567452
+
+$LGB$time
+[1] 9.288279
+
+
+$SVM
+$SVM$confusion
+      
+          N AFIB
+  N    9398  403
+  AFIB  446 6098
+
+$SVM$sensitivity
+[1] 0.931846
+
+$SVM$specificity
+[1] 0.9588817
+
+$SVM$f1
+[1] 0.9349176
+
+$SVM$accuracy
+[1] 0.9480575
+
+$SVM$time
+[1] 113.5436
+
+
+$RFO
+$RFO$confusion
+      
+          N AFIB
+  N    9455  346
+  AFIB  441 6103
+
+$RFO$sensitivity
+[1] 0.93261
+
+$RFO$specificity
+[1] 0.9646975
+
+$RFO$f1
+[1] 0.9394289
+
+$RFO$accuracy
+[1] 0.9518507
+
+$RFO$time
+[1] 216.2922
+
+
+[1] "Segment Length: 55"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+          N AFIB
+  N    8624  292
+  AFIB  423 5529
+
+$LOG$sensitivity
+[1] 0.9289315
+
+$LOG$specificity
+[1] 0.9672499
+
+$LOG$f1
+[1] 0.9392678
+
+$LOG$accuracy
+[1] 0.9519101
+
+$LOG$time
+[1] 1.929056
+
+
+$LDA
+$LDA$confusion
+      
+          N AFIB
+  N    8642  274
+  AFIB  462 5490
+
+$LDA$sensitivity
+[1] 0.922379
+
+$LDA$specificity
+[1] 0.9692687
+
+$LDA$f1
+[1] 0.9371799
+
+$LDA$accuracy
+[1] 0.9504977
+
+$LDA$time
+[1] 1.021358
+
+
+$QDA
+$QDA$confusion
+      
+          N AFIB
+  N    8102  814
+  AFIB  372 5580
+
+$QDA$sensitivity
+[1] 0.9375
+
+$QDA$specificity
+[1] 0.9087035
+
+$QDA$f1
+[1] 0.9039365
+
+$QDA$accuracy
+[1] 0.9202314
+
+$QDA$time
+[1] 0.8298218
+
+
+$GBM
+$GBM$confusion
+      
+          N AFIB
+  N    8619  297
+  AFIB  367 5585
+
+$GBM$sensitivity
+[1] 0.9383401
+
+$GBM$specificity
+[1] 0.9666891
+
+$GBM$f1
+[1] 0.9438905
+
+$GBM$accuracy
+[1] 0.9553403
+
+$GBM$time
+[1] 1448.789
+
+
+$XGB
+$XGB$confusion
+      
+          N AFIB
+  N    8590  326
+  AFIB  287 5665
+
+$XGB$sensitivity
+[1] 0.9517809
+
+$XGB$specificity
+[1] 0.9634365
+
+$XGB$f1
+[1] 0.9486729
+
+$XGB$accuracy
+[1] 0.9587705
+
+$XGB$time
+[1] 452.4387
+
+
+$LGB
+$LGB$confusion
+      
+          N AFIB
+  N    8626  290
+  AFIB  343 5609
+
+$LGB$sensitivity
+[1] 0.9423723
+
+$LGB$specificity
+[1] 0.9674742
+
+$LGB$f1
+[1] 0.9465868
+
+$LGB$accuracy
+[1] 0.9574253
+
+$LGB$time
+[1] 7.069786
+
+
+$SVM
+$SVM$confusion
+      
+          N AFIB
+  N    8576  340
+  AFIB  433 5519
+
+$SVM$sensitivity
+[1] 0.9272513
+
+$SVM$specificity
+[1] 0.9618663
+
+$SVM$f1
+[1] 0.9345525
+
+$SVM$accuracy
+[1] 0.9480091
+
+$SVM$time
+[1] 83.79657
+
+
+$RFO
+$RFO$confusion
+      
+          N AFIB
+  N    8623  293
+  AFIB  413 5539
+
+$RFO$sensitivity
+[1] 0.9306116
+
+$RFO$specificity
+[1] 0.9671377
+
+$RFO$f1
+[1] 0.9400883
+
+$RFO$accuracy
+[1] 0.9525155
+
+$RFO$time
+[1] 197.4086
+
+
+[1] "Segment Length: 60"
+[1] "Covariates: S.S, S.Reg, S.L, Reg.S, Reg.Reg, Reg.L, L.S, L.Reg, L.L, RRVar, dRRVar, NECRate"
+[1] "Version: M"
+$LOG
+$LOG$confusion
+      
+          N AFIB
+  N    7908  265
+  AFIB  380 5081
+
+$LOG$sensitivity
+[1] 0.9304157
+
+$LOG$specificity
+[1] 0.9675762
+
+$LOG$f1
+[1] 0.9403165
+
+$LOG$accuracy
+[1] 0.9526918
+
+$LOG$time
+[1] 1.723513
+
+
+$LDA
+$LDA$confusion
+      
+          N AFIB
+  N    7930  243
+  AFIB  418 5043
+
+$LDA$sensitivity
+[1] 0.9234572
+
+$LDA$specificity
+[1] 0.970268
+
+$LDA$f1
+[1] 0.9384945
+
+$LDA$accuracy
+[1] 0.9515183
+
+$LDA$time
+[1] 0.9082448
+
+
+$QDA
+$QDA$confusion
+      
+          N AFIB
+  N    7391  782
+  AFIB  311 5150
+
+$QDA$sensitivity
+[1] 0.9430507
+
+$QDA$specificity
+[1] 0.9043191
+
+$QDA$f1
+[1] 0.9040639
+
+$QDA$accuracy
+[1] 0.9198328
+
+$QDA$time
+[1] 0.8860993
+
+
+$GBM
+$GBM$confusion
+      
+          N AFIB
+  N    7884  289
+  AFIB  296 5165
+
+$GBM$sensitivity
+[1] 0.9457975
+
+$GBM$specificity
+[1] 0.9646397
+
+$GBM$f1
+[1] 0.946404
+
+$GBM$accuracy
+[1] 0.9570926
+
+$GBM$time
+[1] 1406.943
+
+
+$XGB
+$XGB$confusion
+      
+          N AFIB
+  N    7861  312
+  AFIB  268 5193
+
+$XGB$sensitivity
+[1] 0.9509247
+
+$XGB$specificity
+[1] 0.9618255
+
+$XGB$f1
+[1] 0.9471092
+
+$XGB$accuracy
+[1] 0.9574593
+
+$XGB$time
+[1] 463.6517
+
+
+$LGB
+$LGB$confusion
+      
+          N AFIB
+  N    7899  274
+  AFIB  312 5149
+
+$LGB$sensitivity
+[1] 0.9428676
+
+$LGB$specificity
+[1] 0.966475
+
+$LGB$f1
+[1] 0.9461595
+
+$LGB$accuracy
+[1] 0.9570192
+
+$LGB$time
+[1] 8.954476
+
+
+$SVM
+$SVM$confusion
+      
+          N AFIB
+  N    7840  333
+  AFIB  389 5072
+
+$SVM$sensitivity
+[1] 0.9287676
+
+$SVM$specificity
+[1] 0.9592561
+
+$SVM$f1
+[1] 0.9335542
+
+$SVM$accuracy
+[1] 0.9470442
+
+$SVM$time
+[1] 81.15616
+
+
+$RFO
+$RFO$confusion
+      
+          N AFIB
+  N    7899  274
+  AFIB  347 5114
+
+$RFO$sensitivity
+[1] 0.9364585
+
+$RFO$specificity
+[1] 0.966475
+
+$RFO$f1
+[1] 0.9427597
+
+$RFO$accuracy
+[1] 0.9544521
+
+$RFO$time
+[1] 176.5349
+
+
+There were 50 or more warnings (use warnings() to see the first 50)
